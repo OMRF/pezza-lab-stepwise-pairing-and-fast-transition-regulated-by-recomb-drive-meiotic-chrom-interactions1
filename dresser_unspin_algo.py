@@ -18,18 +18,18 @@ Any projection is applied at output, never before the fit.  Rotation fits use th
 Assumptions from experimental conditions
 ----------------------------------------
 1. The nuclear radius is stable over a timelapse, so one measured "R" serves the whole movie.
-2.The nuclear center drifts slowly over the movie.  Spin is removed by a per-frame rotation about the measured center; drift is removed as a single smooth, linear-in-time, translation, not a per-frame one. Estimating a separate per-frame translation from three off-center registration spots is unreliable.  As the nucleus spins, an off-center spot cluster's centroid swings, which a free per-frame translation misreads as drift and injects as spurious motion into the non-registration spot residuals.  A slow linear drift model maintains the real translation and avoids the spurious motion.
+2. The nuclear center drifts slowly over the movie.  Spin is removed by a per-frame rotation about the measured center; drift is removed as a single smooth, linear-in-time, translation, not a per-frame one. Estimating a separate per-frame translation from three off-center registration spots is unreliable.  As the nucleus spins, an off-center spot cluster's centroid swings, which a free per-frame translation misreads as drift and injects as spurious motion into the non-registration spot residuals.  A slow linear drift model maintains the real translation and avoids the spurious motion.
 
 Algorithm (for one nucleus)
 ---------------------------
-1. Input the data from a comma-separated values (csv) file with one row per spot per timepoint, giving the spot's label, x,y,z coordinates and timepoint.  Spot labels end in "<spot number>H" or "<spot number>G".  The nuclear center and radius are measured at timepoint 0 and given as command-line arguments.  The Hoechst (H) spots used for registration are either specified by their spot numbers or all H spots are used when the cell has exactly three.
+1. Input the data from a comma-separated values (csv) file with one row per spot per timepoint, giving the spot's label, x,y,z coordinates and timepoint.  Spot labels end in "<spot number>H" or "<spot number>G".  The nuclear center and radius are measured at timepoint 0 (TP0) and given as command-line arguments.  The Hoechst (H) spots used for registration are either specified by their spot numbers or all H spots are used when the cell has exactly three.
 2. Subtract the measured "--center" from every spot at every time-point so that the nuclear center sits at the origin which is then the fixed rotation pivot.
 3. Pick the three registration H spots, "--H-spots [A,B,C]", or all H spots when the cell has exactly three, and initialize the consensus from their timepoint 0 positions.  Thus, TP0 is the anchor, or reference, orientation.
 4. Use a Rotation-only GPA loop until the per-frame rotations stop changing.
    a. For each frame "k" solve the rotation "R_k" about the origin (Kabsch / Wahba singular value decomposition, no centroid removal) best mapping that frame's three registration spots onto the consensus.
    b. Recalculate the consensus as the per-spot mean of every frame's rotated registration spots.
 5. Gauge-fix so the TP0 rotation is the identity (output is anchored to TP0).
-6. Estimate slow drift by fittin a straight line in time to the spin-removed registration centroid and keep only its time-varying part "drift_k" (0 at TP0).  Each frame's transform is "p -> R_k @ (p - drift_k)", which subtracts for drift then matrix-multiplies by the rotation to calculate the transformed position.  The drift is subtracted from the centroids and then recalculated as the slope of the best-fit line through the spin-removed centroids, so the constant part of the drift (the static offset of the registration cluster from the nuclear center) is kept and only the time-varying part is removed.
+6. Estimate slow drift by fitting a straight line in time to the spin-removed registration centroid and keep only its time-varying part "drift_k" (0 at TP0).  Each frame's transform is "p -> R_k @ (p - drift_k)", which subtracts for drift then matrix-multiplies by the rotation to calculate the transformed position.  The drift is subtracted from the centroids and then recalculated as the slope of the best-fit line through the spin-removed centroids, so the constant part of the drift (the static offset of the registration cluster from the nuclear center) is kept and only the time-varying part is removed.
 7. Apply each transform to all spots (H and G) at frame "k".  The same nuclear rotation and slow drift are removed from the GFP spot, leaving its active motion as the residual.
 8. Output the transformed positions without sphere projection so that H and G spots alike keep their real transformed radial position and can be compared without radial position bias. Alternatively, non-H spots can be projected onto the nuclear/sphere surface using the flag "--proj-to-periph", either for spots known to lie on the periphery or to further reduce noise at the expense of exaggerating movements.
 9. Output is written to a file with the same name as the input file and partially in the same format as the input but with a "-gpa" suffix, "<stem>-gpa.csv".  Columns are added to the output csv file for each row of spot data, giving the per-frame translation and rotation applied to that spot as "tx,ty,tz" and "rx,ry,rz" respectively.  Rows are added to the output to show the "sphere_radius", the "registration_spots numbers (the H numbers used for registration) and the "track_length' and "avg_speed" per spot.
@@ -349,7 +349,7 @@ def _rotation_vector(rotation: np.ndarray) -> np.ndarray:
 
     if angle < ZERO_TOLERANCE:
         return np.zeros(3)
-    
+
     axis = np.array(
         [
             rotation[2, 1] - rotation[1, 2],
@@ -499,7 +499,7 @@ def gpa_unspin(
     rigid = _gpa_transforms(positions[registration_index])
 
     # Apply that same per-frame transform to every spot (H and G). Removing the
-    # nucleus's own spin and slow drift from the non-registration and G spots 
+    # nucleus's own spin and slow drift from the non-registration and G spots
     # leaves only the real motion as the residual -- the whole point of "unspinning".
     for k, (rotation, translation) in enumerate(rigid):
         positions[:, k, :] = (
