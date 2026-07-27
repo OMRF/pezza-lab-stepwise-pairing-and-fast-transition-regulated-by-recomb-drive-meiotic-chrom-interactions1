@@ -36,7 +36,7 @@ Algorithm (for one nucleus)
 
 Command line, flags
 ----------------------
-python -m global_procrustes "<folder>/<file name>.csv" --center CX CY CZ --radius R
+python -m dresser_unspin_algo "<folder>/<file name>.csv" --center CX CY CZ --radius R
 
 "--center CX CY CZ"  (required) measured nuclear center at timepoint 0.
 "--radius R"  (required) measured nuclear radius (assumed stable over the movie).
