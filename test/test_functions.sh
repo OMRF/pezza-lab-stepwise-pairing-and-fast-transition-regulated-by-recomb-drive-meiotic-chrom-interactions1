@@ -4,17 +4,18 @@ TEST_NUM=0
 TEST_PASSED=0
 SHORT_PATH=${SHORT_PATH:=FALSE}
 DEFAULT_MIN_FSTRCMP_SCORE=${DEFAULT_MIN_FSTRCMP_SCORE:="0.97"}
+DEBUG=${DEBUG:=FALSE}
 
 failed () {
     RESULT=$1
-    LEVELS=${2:-1} # defaults to 1
+    LEVELS=${2:-1} # defaults to 1 (function within which this is called)
     TEST_NUM=$((TEST_NUM+1))
     echo -e "not ok $TEST_NUM - (${FUNCNAME[$LEVELS]}) $RESULT"
 }
 
 passed () {
     RESULT=$1
-    LEVELS=${2:-1} # defaults to 1
+    LEVELS=${2:-1} # defaults to 1 (function within which this is called)
     TEST_NUM=$((TEST_NUM+1))
     TEST_PASSED=$((TEST_PASSED+1))
     echo -e "ok $TEST_NUM - (${FUNCNAME[$LEVELS]}) $RESULT"
@@ -22,10 +23,11 @@ passed () {
 
 passed_file_is_as_expected () {
     result_file=$1
+    LEVELS=${2:-2} # Defaults to function that called this one
     if [[ "$SHORT_PATH" == "TRUE" ]]; then
-        passed "$( basename $result_file) is as expected." 2
+        passed "$( basename $result_file) is as expected." $LEVELS
     else
-        passed "$result_file is as expected." 2
+        passed "$result_file is as expected." $LEVELS
     fi
 }
 
@@ -70,16 +72,16 @@ compare_temp_copies () {
 
     # First check if the file exists
     if [[ ! -s $result_file ]]; then
-        failed "File empty or does not exist: $result_file"
+        failed "File empty or does not exist: $result_file" 2
     else
         DIFFERENCE=$(get_difference_between $temp_result $temp_expected)
         if [[ -z "${DIFFERENCE}" ]]; then
-            passed_file_is_as_expected "$result_file"
+            passed_file_is_as_expected "$result_file" 3 # Get level back to original calling function
         else
             if [[ -s ${expected_file}.alt ]]; then
                 test_text_file $result_file ${expected_file}.alt # Yes recursion works in Bash!
             else
-                failed "'${DIFFERENCE}'"
+                failed "'$result_file' differed more than expected from '$expected_file': Approximated copies $DIFFERENCE" 2
             fi
         fi
     fi
@@ -130,9 +132,13 @@ test_approx_sorted_text () {
         # Compare sorted versions
         sorted_difference=$(fstrcmp -a $result_sorted $expected_sorted)
 
-        # Remove temp files
-        rm $result_sorted
-        rm $expected_sorted
+        if [[ "$DEBUG" == "FALSE" ]]; then
+            # Remove temp files
+            rm $result_sorted
+            rm $expected_sorted
+        else
+            echo "# DEBUG: Compare $result_sorted to $expected_sorted"
+        fi
         
         # Is result file close enough to expected?
         if [[ "$SHORT_PATH" == "TRUE" ]]; then
@@ -176,8 +182,12 @@ test_pdf () {
         # See if PDF files after header are identical
         DIFFERENCE=$(get_difference_between $headless_result $headless_expected)
 
-        # Clean up temp files
-        rm $headless_result $headless_expected
+        if [[ "$DEBUG" == "FALSE" ]]; then
+            # Clean up temp files
+            rm $headless_result $headless_expected
+        else
+            echo "DEBUG: Compare $headless_result to $headless_expected"
+        fi
 
         # Decide whether we passed, need to check alts, or failed
         if [[ -z "${DIFFERENCE}" ]]; then
@@ -212,9 +222,13 @@ approx_csv () {
     awk 'BEGIN{FS=",";OFS=","} {$2=sprintf("%.2g",$2); $3=sprintf("%.2g",$3); $4=sprintf("%.2g",$4); $5=sprintf("%.2g",$5); $6=sprintf("%.2g",$6); $7=sprintf("%.2g",$7); $8=sprintf("%.2g",$8); $9=sprintf("%.2f",$9); $10=sprintf("%.2f",$10); $11=sprintf("%.2f",$11); $12=sprintf("%.2f",$12); $13=sprintf("%.2g",$13); $14=sprintf("%.2g",$14); $15=sprintf("%.2g",$15); $16=sprintf("%.2g",$16); $17=sprintf("%.2g",$17); $18=sprintf("%.2g",$18); print $0}' $original_expected > $temp_expected
     compare_temp_copies $original_result $original_expected $temp_result $temp_expected 
 
-    #NOTE: This will leave temp files if this fails
-    rm -f $temp_result
-    rm -f $temp_expected
+    #Don't fill up TMPDIR
+    if [[ "$DEBUG" == "FALSE" ]]; then
+        rm -f $temp_result
+        rm -f $temp_expected
+    else
+        echo "# DEBUG: Compare $temp_result to $temp_expected"
+    fi
 }
 
 test_dir_does_not_exist () {
