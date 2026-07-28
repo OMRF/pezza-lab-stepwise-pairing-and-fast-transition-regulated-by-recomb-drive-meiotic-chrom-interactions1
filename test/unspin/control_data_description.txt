@@ -1,0 +1,17 @@
+Description of control_ data found in contol_<>.csv and control_<>.png files
+
+All are synthetic data with the coordinates of 3 “H” and 1 “G” spots "imaged" over 21 time points.
+
+The G and H spots are randomly assigned to points on a sphere of radius 10, then the 1H spot is moved 30% of the radius inward along its own direction.  The spot cloud is rotated per-step by 30-degrees * Gaussian noise about an axis that starts on +Z and is tilted by a random 30-45 degrees every 3rd time point.  In addition, spot G is rotated per-step around the X axis by 10-degrees * Gaussian noise - this is the "independent" movement to be uncovered by the algorithm.  In addition, the point cloud is translated by 0.5 units in a random direction every 3 time-points; the effects of this translation cannot be completely removed by the algorithm which is designed specifically for translation/drift along a single direction over the time course.
+
+Control data that are "fuzzed" are the result of multiplying the "real" spot coordinates by Gaussian noise at each time-point.  The sampled Gaussian distribution has a mean of 1.0 and a standard deviation of 0.1.
+
+control_real.csv - data prepared as above without added noise
+control_real_not_spun.csv - the experimental data without spinning or translation, the ideal result of applying the algorithm to the data in control_real.csv
+control_fuzzed.csv - data prepared as for -real with added noise
+control_fuzzed_not_spun.csv - data prepared for _real_not_spun with added noise
+
+
+control_real_and_control_fuzzed.png - compares the synthetic data to be unspun
+control_real_not_spun_or_translated_and_control_real_unspun.png - compares the clean target data with the result of applying the algorithm
+control_fuzzed_not_spun_or_translated_and_control_fuzzed_unspun.png - compares the noisy target data with the result of applying the algorithm
