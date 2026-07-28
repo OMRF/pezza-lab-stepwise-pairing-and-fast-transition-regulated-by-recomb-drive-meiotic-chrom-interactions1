@@ -374,7 +374,8 @@ def _project_to_sphere(points: np.ndarray, radius: float) -> np.ndarray:
 
     norms = np.where(norms < ZERO_TOLERANCE, 1.0, norms)
 
-    return points / norms * radius
+    # For origin centered sphere, points projected onto a sphere of radius r are at their unit positions times r/sqrt(3)
+    return (points / norms) * (radius / (3)**0.5)
 
 
 def _gpa_rotations(
