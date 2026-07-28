@@ -24,8 +24,12 @@ Calculate mean square distance from each data point to the first data point.
 See https://en.wikipedia.org/wiki/Mean_squared_displacement#Derivation_for_n_dimensions.
 
 ## dresser_unspin_algo.py
-### SYNOPSIS: dresser_unspin_algo.py "<folder>/<file name>.csv" --center CX CY CZ --radius R
-### Example:  dresser_unspin_algo.py test/input/unspin/control_fuzzed.csv  --center 0 0 0 --radius 10
+
+### SYNOPSIS:
+    dresser_unspin_algo.py "<folder>/<file name>.csv" --center CX CY CZ --radius R
+
+### Example:
+    dresser_unspin_algo.py test/input/unspin/control_fuzzed.csv  --center 0 0 0 --radius 10
 
 The CSV file contains the columns "labels,x,y,z,t" representing the the spot's label, x,y,z coordinates and timepoint, respectively. Spot labels end in "<spot number>H" or "<spot number>G". The nuclear center and radius are measured at timepoint 0 (TP0) and given as command-line arguments.  The Hoechst (H) spots used for registration are either specified by their spot numbers or all H spots are used when the cell has exactly three.
 
