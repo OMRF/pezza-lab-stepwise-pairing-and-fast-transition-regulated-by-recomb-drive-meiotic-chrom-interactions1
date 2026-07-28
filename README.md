@@ -1,5 +1,9 @@
 # Stepwise pairing and fast transition regulated by recombination drive meiotic chromosome interactions
 
+# VERSION
+
+2026-07-28-22-03
+
 # Getting started
 
 ## Clone repo and then use uv to install Python dependencies (including cellpose 2 and jupyterlab)
