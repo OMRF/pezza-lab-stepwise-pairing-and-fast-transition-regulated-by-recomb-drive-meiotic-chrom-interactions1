@@ -75,3 +75,26 @@ If you're using the uv environment for this script, you can also proceed those c
 `--proj-to-periph`  also project the non-registration (G) spots onto the sphere.  Is off by default so that interior G spots keep their real radial position.  
 `--H-spots [A,B,C]`  the three H spot numbers to use as registration spots.  Can omit when the cell has exactly three H spots.  
 
+# AUTHORS
+
+## dresser_unspin_algo.py
+    Michael Dresser
+
+## median_detection.R
+    Nathan Pezant
+
+## Nucleus_Proofreading_and_Classification.ipynb
+    Elizabeth Finn
+
+## SpotSelection.ipynb
+    Elizabeth Finn
+
+## kymograph.R
+    Christopher Bottoms and Robert Pezza
+
+## msd.R 
+    Christopher Bottoms
+
+# LICENSE
+
+    Long-term license has not yet been decided, but for now, reviewers may download the code for testing and reviewing.
