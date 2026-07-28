@@ -37,7 +37,7 @@ The CSV file contains the columns "labels,x,y,z,t" representing the the spot's l
 
 `--center CX CY CZ`  (required) measured nuclear center at timepoint 0.  
 `--radius R`  (required) measured nuclear radius (assumed stable over the movie).  
-`--out-dir DIR`  output directory (default: a sister "unspun" folder beside the input, for example "data/\<movie name\>/unspun/" where the input data are in "data/\<movie name\>/raw/").  
+`--out-dir DIR`  output directory (default: a sister "unspun" folder beside the input, for example "movie_name/unspun/" where the input data are in "movie_name/raw/").  
 `--time-step-seconds S`  seconds per time-point, used for "avg_speed" (default 60.0; may be given as "60").  
 `--proj-to-periph`  also project the non-registration (G) spots onto the sphere.  Is off by default so that interior G spots keep their real radial position.  
 `--H-spots [A,B,C]`  the three H spot numbers to use as registration spots.  Can omit when the cell has exactly three H spots.  
