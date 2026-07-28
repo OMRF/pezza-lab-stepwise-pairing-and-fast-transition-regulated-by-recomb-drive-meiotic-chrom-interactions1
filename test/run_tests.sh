@@ -7,8 +7,8 @@ export dir_above=$(dirname $script_dir)
 export PATH="$script_dir:$dir_above:$PATH"
 
 # Make R and Python available
-module load R
-module load python
+module load R      # If needed change this to whatever makes R available to you
+module load python # If needed change to whatever makes Python available to you
 
 # Add test functions
 source test_functions.sh
