@@ -7,9 +7,9 @@ The G and H spots are randomly assigned to points on a sphere of radius 10, then
 Control data that are "fuzzed" are the result of multiplying the "real" spot coordinates by Gaussian noise at each time-point.  The sampled Gaussian distribution has a mean of 1.0 and a standard deviation of 0.1.
 
 control_real.csv - data prepared as above without added noise
-control_real_not_spun.csv - the experimental data without spinning or translation, the ideal result of applying the algorithm to the data in control_real.csv
-control_fuzzed.csv - data prepared as for -real with added noise
-control_fuzzed_not_spun.csv - data prepared for _real_not_spun with added noise
+control_real_not_spun_or_translated.csv - the experimental data without spinning or translation, the ideal result of applying the algorithm to the data in control_real.csv
+control_fuzzed.csv - data prepared as for _real with added noise
+control_fuzzed_not_spun_or_translated.csv - data prepared for _real_not_spun_or_translated with added noise
 
 
 control_real_and_control_fuzzed.png - compares the synthetic data to be unspun
