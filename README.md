@@ -1,5 +1,22 @@
 # Stepwise pairing and fast transition regulated by recombination drive meiotic chromosome interactions
 
+# Getting started
+
+## Clone repo and then use uv to install Python dependencies (including cellpose 2 and jupyterlab)
+    # Assuming R installed
+    # Assuming uv installed (see https://docs.astral.sh/uv/getting-started/installation/)
+
+    git clone https://github.com/OMRF/pezza-lab-stepwise-pairing-and-fast-transition-regulated-by-recomb-drive-meiotic-chrom-interactions1.git stepwise-pairing-fast-transition
+    cd stepwise-pairing-fast-transition
+    uv sync 
+
+## Testing JupyterLab notebooks:
+
+Please create the directory "sample_img" and download the file CS4_g1.czi to it.
+
+Start with the notebook "SpotSelection.ipynb" and afterwards run the notebook "Nucleus_Proofreading_and_Classification.ipynb".
+
+
 # Scripts
 
 ## kymograph.R
@@ -57,20 +74,4 @@ If you're using the uv environment for this script, you can also proceed those c
 `--time-step-seconds S`  seconds per time-point, used for "avg_speed" (default 60.0; may be given as "60").  
 `--proj-to-periph`  also project the non-registration (G) spots onto the sphere.  Is off by default so that interior G spots keep their real radial position.  
 `--H-spots [A,B,C]`  the three H spot numbers to use as registration spots.  Can omit when the cell has exactly three H spots.  
-
-# Getting started
-
-## Clone repo and then use uv to install Python dependencies (including cellpose 2 and jupyterlab)
-    # Assuming R installed
-    # Assuming uv installed (see https://docs.astral.sh/uv/getting-started/installation/)
-
-    git clone https://github.com/OMRF/pezza-lab-stepwise-pairing-and-fast-transition-regulated-by-recomb-drive-meiotic-chrom-interactions1.git stepwise-pairing-fast-transition
-    cd stepwise-pairing-fast-transition
-    uv sync 
-
-## Testing JupyterLab notebooks:
-
-Please create the directory "sample_img" and download the file CS4_g1.czi to it.
-
-Start with the notebook "SpotSelection.ipynb" and afterwards run the notebook "Nucleus_Proofreading_and_Classification.ipynb".
 
