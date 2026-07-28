@@ -2,16 +2,17 @@
 
 # Scripts
 
-## kymograph.R file.xls
+## kymograph.R test/input/Example.xlsx
 
-`file.xls` is an XLS file containing the sheet "Distance To Nearest Neighbour"
-with same-named column ("Distance To Nearest Neighbour") and a column named
-"Time". Rows with duplicate Time values are ignored (we expect them to
-correspond to completely duplicate rows).
+Input file (e.g., `Example.xlsx`) must contain a sheet named "Distance To Nearest Neighbour" with column headers in the second row.
+One column header must be "Distance To Nearest Neighbour" and the other "Time".
+Rows with duplicate Time values are ignored (we expect them to correspond to completely duplicate rows).
 
-## median_detection.R changeofphases.csv
+## median_detection.R test/input/Example.xlsx
 
-file `changeofphases.csv` contains a list of numbers, one number per line.
+Input file (e.g., `Example.xlsx`) must contain a sheet named "Distance To Nearest Neighbour" with column headers in the second row.
+One column header must be "Distance To Nearest Neighbour" and the other "Time".
+Rows with duplicate Time values are ignored (we expect them to correspond to completely duplicate rows).
 
 ## msd.R distance_file.csv
 
