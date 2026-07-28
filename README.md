@@ -2,10 +2,19 @@
 
 # Scripts
 
-## kymograph.R test/input/Example.xlsx
+## kymograph.R
 
-Input file (e.g., `Example.xlsx`) must contain a sheet named "Distance To Nearest Neighbour" with column headers in the second row.
-One column header must be "Distance To Nearest Neighbour" and the other "Time".
+### USAGE:
+    kymograph.R "<folder>/<file name>.xlsx"
+
+### Eample:
+    kymograph.R test/input/Example.xlsx
+
+Input XLSX file must contain a sheet named "Distance To Nearest Neighbour".
+Column headers must be in the second row.
+One column header must be "Distance To Nearest Neighbour".
+One column header must be "Time".
+Other columns are ignored.
 Rows with duplicate Time values are ignored (we expect them to correspond to completely duplicate rows).
 
 ## median_detection.R test/input/Example.xlsx
@@ -14,10 +23,15 @@ Input file (e.g., `Example.xlsx`) must contain a sheet named "Distance To Neares
 One column header must be "Distance To Nearest Neighbour" and the other "Time".
 Rows with duplicate Time values are ignored (we expect them to correspond to completely duplicate rows).
 
-## msd.R distance_file.csv
+## msd.R
 
-CSV file `distance_file.csv` contains the columns x, y, and z, separated by
-commas. Other columns are ignored..  
+### USAGE:
+    msd.R "<folder>/<file name>.csv"
+
+### Example:
+    msd.R test/input/msd_example.csv 
+
+The CSV file contains the columns x, y, and z, separated by commas. Other columns are ignored..  
 
 Calculate mean square distance from each data point to the first data point.  
 
@@ -25,7 +39,7 @@ See https://en.wikipedia.org/wiki/Mean_squared_displacement#Derivation_for_n_dim
 
 ## dresser_unspin_algo.py
 
-### SYNOPSIS:
+### USAGE:
     dresser_unspin_algo.py "<folder>/<file name>.csv" --center CX CY CZ --radius R
 
 ### Example:
@@ -33,7 +47,7 @@ See https://en.wikipedia.org/wiki/Mean_squared_displacement#Derivation_for_n_dim
 
 The CSV file contains the columns "labels,x,y,z,t" representing the the spot's label, x,y,z coordinates and timepoint, respectively. Spot labels end in "<spot number>H" or "<spot number>G". The nuclear center and radius are measured at timepoint 0 (TP0) and given as command-line arguments.  The Hoechst (H) spots used for registration are either specified by their spot numbers or all H spots are used when the cell has exactly three.
 
-### Command line, flags
+### Command line flags
 
 `--center CX CY CZ`  (required) measured nuclear center at timepoint 0.  
 `--radius R`  (required) measured nuclear radius (assumed stable over the movie).  
@@ -55,3 +69,6 @@ The CSV file contains the columns "labels,x,y,z,t" representing the the spot's l
 ## Testing JupyterLab notebooks:
 
 Please create the directory "sample_img" and download the file CS4_g1.czi to it.
+
+Start with the notebook "SpotSelection.ipynb" and afterwards run the notebook "Nucleus_Proofreading_and_Classification.ipynb".
+
