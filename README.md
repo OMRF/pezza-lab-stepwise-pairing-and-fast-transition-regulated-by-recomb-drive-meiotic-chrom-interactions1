@@ -24,7 +24,7 @@ Start with the notebook "SpotSelection.ipynb" and afterwards run the notebook "N
 ### USAGE:
     kymograph.R "<folder>/<file name>.xlsx"
 
-### Eample:
+### Example:
     kymograph.R test/input/Example.xlsx
 
 Input XLSX file must contain a sheet named "Distance To Nearest Neighbour".  
@@ -34,10 +34,19 @@ One column header must be "Time".
 Other columns are ignored.  
 Rows with duplicate Time values are ignored (we expect them to correspond to completely duplicate rows).  
 
-## median_detection.R test/input/Example.xlsx
+## median_detection.R
 
-Input file (e.g., `Example.xlsx`) must contain a sheet named "Distance To Nearest Neighbour" with column headers in the second row.  
-One column header must be "Distance To Nearest Neighbour" and the other "Time".  
+### USAGE:
+    median_detection.R "<folder>/<file name>.xlsx"
+
+### Example:
+    median_detection.R test/input/Example.xlsx
+
+Input XLSX file must contain a sheet named "Distance To Nearest Neighbour".  
+Column headers must be in the second row.  
+One column header must be "Distance To Nearest Neighbour".  
+One column header must be "Time".  
+Other columns are ignored.  
 Rows with duplicate Time values are ignored (we expect them to correspond to completely duplicate rows).  
 
 ## msd.R
@@ -97,7 +106,3 @@ If you're using the uv environment for this script, you can also proceed those c
 
 ## msd.R 
     Christopher Bottoms
-
-# LICENSE
-
-    Long-term license has not yet been decided, but for now, reviewers may download the code for testing and reviewing.
