@@ -1,3 +1,4 @@
+#!/bin/env python3
 """
 Developed and tested with Python 3.12.12 and NumPy 2.4.2.
 
