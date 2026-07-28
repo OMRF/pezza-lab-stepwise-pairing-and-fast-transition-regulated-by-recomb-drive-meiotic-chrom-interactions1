@@ -11,9 +11,9 @@ set -o pipefail # If a pipe fails, returns the error code for the failed pipe
 message=${1?Commit message required before updating version}
 
 # Date version: Year, month, day, hour, minute
-new_version="$(date +'%Y-%m-%d-%H-%M')"
+new_version="v$(date +'%Y-%m-%d-%H-%M')"
 
-sed -z "s/# VERSION\n\n[0-9]\+-[0-9]\+-[0-9]\+-[0-9]\+-[0-9]\+/# VERSION\n\n$new_version/" -i README.md
+sed -z "s/# VERSION\n\nv[0-9]\+-[0-9]\+-[0-9]\+-[0-9]\+-[0-9]\+/# VERSION\n\n$new_version/" -i README.md
 
 echo "$new_version" > version.txt
 

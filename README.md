@@ -2,11 +2,11 @@
 
 # VERSION
 
-2026-07-28-22-03
+v2026-07-28-22-20
 
 # Getting started
 
-## Clone repo and then use uv to install Python dependencies (including cellpose 2 and jupyterlab)
+## Python: Clone repo and then use uv to install dependencies (including cellpose 2 and jupyterlab)
     # Assuming R installed
     # Assuming uv installed (see https://docs.astral.sh/uv/getting-started/installation/)
 
@@ -20,6 +20,12 @@ Please create the directory "sample_img" and download the file CS4_g1.czi to it.
 
 Start with the notebook "SpotSelection.ipynb" and afterwards run the notebook "Nucleus_Proofreading_and_Classification.ipynb".
 
+## R package dependencies
+
+    changepoint
+    ggplot2
+    readxl
+    strucchange
 
 # Scripts
 
@@ -80,7 +86,10 @@ Spot labels end in "<spot number>H" or "<spot number>G".
 The nuclear center and radius are measured at timepoint 0 (TP0) and given as command-line arguments.  
 The Hoechst (H) spots used for registration are either specified by their spot numbers or all H spots are used when the cell has exactly three.  
 
-If you're using the uv environment for this script, you can also proceed those commands with `uv run`.  
+You can also use the uv environment for dresser_unspin_algo.py thus:
+
+    cd stepwise-pairing-fast-transition
+    uv run ../dresser_unspin_algo.py test/input/unspin/control_fuzzed.csv  --center 0 0 0 --radius 10
 
 ### Command line flags
 
