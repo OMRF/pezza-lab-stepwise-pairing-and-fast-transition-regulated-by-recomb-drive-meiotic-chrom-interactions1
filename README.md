@@ -8,7 +8,7 @@
 
     git clone https://github.com/OMRF/pezza-lab-stepwise-pairing-and-fast-transition-regulated-by-recomb-drive-meiotic-chrom-interactions1.git stepwise-pairing-fast-transition
     cd stepwise-pairing-fast-transition
-    uv sync 
+    uv sync
 
 ## Testing JupyterLab notebooks:
 
@@ -27,18 +27,18 @@ Start with the notebook "SpotSelection.ipynb" and afterwards run the notebook "N
 ### Eample:
     kymograph.R test/input/Example.xlsx
 
-Input XLSX file must contain a sheet named "Distance To Nearest Neighbour".
-Column headers must be in the second row.
-One column header must be "Distance To Nearest Neighbour".
-One column header must be "Time".
-Other columns are ignored.
-Rows with duplicate Time values are ignored (we expect them to correspond to completely duplicate rows).
+Input XLSX file must contain a sheet named "Distance To Nearest Neighbour".  
+Column headers must be in the second row.  
+One column header must be "Distance To Nearest Neighbour".  
+One column header must be "Time".  
+Other columns are ignored.  
+Rows with duplicate Time values are ignored (we expect them to correspond to completely duplicate rows).  
 
 ## median_detection.R test/input/Example.xlsx
 
-Input file (e.g., `Example.xlsx`) must contain a sheet named "Distance To Nearest Neighbour" with column headers in the second row.
-One column header must be "Distance To Nearest Neighbour" and the other "Time".
-Rows with duplicate Time values are ignored (we expect them to correspond to completely duplicate rows).
+Input file (e.g., `Example.xlsx`) must contain a sheet named "Distance To Nearest Neighbour" with column headers in the second row.  
+One column header must be "Distance To Nearest Neighbour" and the other "Time".  
+Rows with duplicate Time values are ignored (we expect them to correspond to completely duplicate rows).  
 
 ## msd.R
 
@@ -52,7 +52,7 @@ The CSV file contains the columns x, y, and z, separated by commas. Other column
 
 Calculate mean square distance from each data point to the first data point.  
 
-See https://en.wikipedia.org/wiki/Mean_squared_displacement#Derivation_for_n_dimensions.
+See https://en.wikipedia.org/wiki/Mean_squared_displacement#Derivation_for_n_dimensions.  
 
 ## dresser_unspin_algo.py
 
@@ -62,7 +62,10 @@ See https://en.wikipedia.org/wiki/Mean_squared_displacement#Derivation_for_n_dim
 ### Example:
     dresser_unspin_algo.py test/input/unspin/control_fuzzed.csv  --center 0 0 0 --radius 10
 
-The CSV file contains the columns "labels,x,y,z,t" representing the the spot's label, x,y,z coordinates and timepoint, respectively. Spot labels end in "<spot number>H" or "<spot number>G". The nuclear center and radius are measured at timepoint 0 (TP0) and given as command-line arguments.  The Hoechst (H) spots used for registration are either specified by their spot numbers or all H spots are used when the cell has exactly three.  
+The CSV file contains the columns "labels,x,y,z,t" representing the the spot's label, x,y,z coordinates and timepoint, respectively.  
+Spot labels end in "<spot number>H" or "<spot number>G".  
+The nuclear center and radius are measured at timepoint 0 (TP0) and given as command-line arguments.  
+The Hoechst (H) spots used for registration are either specified by their spot numbers or all H spots are used when the cell has exactly three.  
 
 If you're using the uv environment for this script, you can also proceed those commands with `uv run`.  
 
