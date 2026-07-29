@@ -1,6 +1,6 @@
-[![DOI](https://zenodo.org/badge/1242805995.svg)](https://doi.org/10.5281/zenodo.21681400)
-
 # Stepwise pairing and fast transition regulated by recombination drive meiotic chromosome interactions
+
+[![DOI](https://zenodo.org/badge/1242805995.svg)](https://doi.org/10.5281/zenodo.21681400)
 
 # VERSION
 
